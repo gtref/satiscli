@@ -27,7 +27,9 @@ jobs:
           languages: c-cpp
 
       - name: Install Zig
-        run: winget install --id zig.zig --silent --accept-source-agreements --accept-package-agreements
+        uses: mlugg/setup-zig@v1
+        with:
+          version: "0.16.0"
 
       - name: Build for analysis
         run: .\build.bat
