@@ -27,9 +27,16 @@ jobs:
           languages: c-cpp
 
       - name: Install Zig
-        uses: mlugg/setup-zig@v1
-        with:
-          version: "0.16.0"
+        shell: pwsh
+        run: |
+          $version = "0.16.0"
+          $url = "https://ziglang.org/download/$version/zig-x86_64-windows-$version.zip"
+          $zip = "$env:RUNNER_TEMP\zig.zip"
+          $dest = "$env:RUNNER_TEMP\zig"
+          Invoke-WebRequest -Uri $url -OutFile $zip
+          Expand-Archive -Path $zip -DestinationPath $dest
+          $zigDir = (Get-ChildItem $dest -Directory | Select-Object -First 1).FullName
+          echo $zigDir | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
 
       - name: Build for analysis
         run: .\build.bat
