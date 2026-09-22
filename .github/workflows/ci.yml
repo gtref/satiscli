@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Build (Windows / zig cc)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Zig
+        run: winget install --id zig.zig --silent --accept-source-agreements --accept-package-agreements
+
+      - name: Build
+        run: .\build.bat
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: satiscli-${{ github.sha }}
+          path: build\myshell.exe
+          if-no-files-found: error

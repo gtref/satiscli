@@ -1,0 +1,69 @@
+name: Bug Report
+description: Report a reproducible bug in SATISCLI
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill in as much detail as possible.
+
+  - type: input
+    id: version
+    attributes:
+      label: SATISCLI Version / Commit
+      description: Run `git rev-parse --short HEAD` or paste the build date.
+      placeholder: e.g. a3f92c1
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Windows Version
+      placeholder: e.g. Windows 11 23H2
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Start SATISCLI
+        2. Type '...'
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: satisconf
+    attributes:
+      label: Relevant .satisconf entries (remove sensitive values)
+      render: ini
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional Context / Screenshots
